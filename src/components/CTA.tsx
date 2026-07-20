@@ -1,5 +1,4 @@
 import { Calendar } from 'lucide-react';
-import { alessandroBase64 } from '../assets/alessandroImage';
 
 export function CTA() {
   return (
@@ -24,7 +23,7 @@ export function CTA() {
 
           <div className="relative z-10 md:w-[45%] h-full flex justify-center md:justify-end items-end mt-auto pointer-events-none">
             <img 
-              src={alessandroBase64}
+              src="/alessandro2.png"
               alt="Alessandro" 
               className="w-full max-w-[320px] md:max-w-[420px] object-contain object-bottom -mb-2 md:-mb-6 filter drop-shadow-2xl"
             />
