@@ -1,6 +1,6 @@
 export function Navigation() {
   return (
-    <nav className="sticky top-0 z-50 bg-black/40 backdrop-blur-md border-b border-white/10">
+    <nav className="fixed w-full top-0 z-50 bg-black/40 backdrop-blur-md border-b border-white/10">
       <div className="max-w-[1120px] mx-auto px-7 flex items-center justify-between py-6">
         <div className="flex items-center gap-2 font-bold text-xl tracking-tight">
           <div className="w-8 h-8 bg-gradient-to-tr from-indigo-500 to-purple-500 rounded-lg flex items-center justify-center">

@@ -56,6 +56,10 @@
   }
 }
 
+html, body {
+  overflow-x: hidden;
+}
+
 html {
   scroll-behavior: smooth;
   background-color: var(--color-paper);

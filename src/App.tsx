@@ -16,7 +16,7 @@ import { Footer } from './components/Footer';
 
 export default function App() {
   return (
-    <div className="min-h-screen relative overflow-x-hidden text-white font-sans bg-[#050505]">
+    <div className="min-h-screen relative text-white font-sans bg-[#050505]">
       {/* Global Noise Overlay */}
       <div className="fixed inset-0 bg-[url('https://grainy-gradients.vercel.app/noise.svg')] opacity-[0.03] pointer-events-none mix-blend-overlay z-50"></div>
       
