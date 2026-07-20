@@ -1,4 +1,4 @@
-import { Play } from 'lucide-react';
+import { Clapperboard } from 'lucide-react';
 
 export function Navigation() {
   return (
@@ -6,7 +6,7 @@ export function Navigation() {
       <div className="max-w-[1120px] mx-auto px-4 sm:px-7 flex items-center justify-between py-4 sm:py-6">
         <div className="flex items-center gap-2 font-bold text-base sm:text-xl tracking-tight truncate mr-2">
           <div className="w-7 h-7 sm:w-8 sm:h-8 bg-gradient-to-tr from-indigo-500 to-purple-500 rounded-lg flex items-center justify-center shrink-0 shadow-lg shadow-indigo-500/20">
-            <Play className="w-3.5 h-3.5 sm:w-4 sm:h-4 text-white fill-white ml-0.5" />
+            <Clapperboard className="w-5 h-5 sm:w-6 sm:h-6 text-white" />
           </div>
           <span className="truncate">Alessandro Di Ruscio</span>
         </div>
