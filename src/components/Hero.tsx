@@ -17,7 +17,7 @@ export function Hero() {
   }, []);
 
   return (
-    <header className="bg-[radial-gradient(ellipse_at_top,_var(--tw-gradient-stops))] from-indigo-900/20 via-[#050505] to-[#050505] text-white pt-[88px] overflow-hidden relative pb-16">
+    <header className="bg-[radial-gradient(ellipse_at_top,_var(--tw-gradient-stops))] from-indigo-900/20 via-[#050505] to-[#050505] text-white pt-[140px] overflow-hidden relative pb-16">
       <div className="absolute inset-0 bg-grid-pattern opacity-50 pointer-events-none mix-blend-overlay mask-image:linear-gradient(to_bottom,black,transparent)"></div>
       <div className="max-w-[1120px] mx-auto px-7 flex flex-col lg:flex-row items-center gap-16">
         <div className="w-full lg:w-[55%]">
