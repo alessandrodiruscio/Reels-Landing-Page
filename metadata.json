@@ -1,0 +1,6 @@
+{
+  "name": "Alessandro Di Ruscio",
+  "description": "AI explainer videos for SaaS landing page.",
+  "requestFramePermissions": [],
+  "majorCapabilities": ["MAJOR_CAPABILITY_SERVER_SIDE_GEMINI_API"]
+}
