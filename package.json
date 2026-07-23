@@ -5,6 +5,7 @@
   "type": "module",
   "scripts": {
     "dev": "vite --port=3000 --host=0.0.0.0",
+    "prebuild": "curl -s -L -o public/social-preview.jpg https://i.postimg.cc/VNXVv8GW/Remove-title-make-minimal-202607221328.jpg",
     "build": "vite build",
     "preview": "vite preview",
     "clean": "rm -rf dist server.js",
