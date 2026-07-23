@@ -6,7 +6,8 @@ export function Work() {
       id: 1,
       client: "WPFunnels",
       domain: "getwpfunnels.com",
-      videoId: "hOOUQhzSzzYN"
+      videoId: "1211043772",
+      provider: "vimeo"
     },
     {
       id: 2,
@@ -76,7 +77,7 @@ export function Work() {
                 </div>
                 <div className="aspect-[9/16] relative bg-[#050505]">
                   <iframe 
-                    src={`https://livid.com/embed/${item.videoId}?muted=false`} 
+                    src={item.provider === 'vimeo' ? `https://player.vimeo.com/video/${item.videoId}?muted=0&autoplay=0` : `https://livid.com/embed/${item.videoId}?muted=false`} 
                     className="w-full h-full absolute inset-0"
                     allow="autoplay; fullscreen"
                     frameBorder="0"
