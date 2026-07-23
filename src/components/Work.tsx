@@ -76,7 +76,7 @@ export function Work() {
                 </div>
                 <div className="aspect-[9/16] relative bg-[#050505]">
                   <iframe 
-                    src={`https://livid.com/embed/${item.videoId}`} 
+                    src={`https://livid.com/embed/${item.videoId}?t=2`} 
                     className="w-full h-full absolute inset-0"
                     allow="autoplay; fullscreen"
                     frameBorder="0"
