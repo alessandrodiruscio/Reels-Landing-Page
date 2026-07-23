@@ -21,6 +21,14 @@ export function Work() {
       thumbnail: "https://api.livid.com/v1/thumbnails/thumbnails%2F40207158-e7c4-4d7c-a4b2-018532ce3fac%2F4eee5b70-dd51-4d55-b4ce-54edf54ca89c.jpg"
     },
     {
+      id: 8,
+      client: "Communi (YT)",
+      domain: "communi.app",
+      videoId: "VmSsPJlafbo",
+      provider: "youtube",
+      thumbnail: "https://i.ytimg.com/vi/VmSsPJlafbo/maxresdefault.jpg"
+    },
+    {
       id: 3,
       client: "Fluent Forms",
       domain: "fluentforms.com",
@@ -62,7 +70,7 @@ export function Work() {
         
         <div className="flex flex-wrap justify-center gap-6 md:gap-8 max-w-[1000px]">
           {items.map((item) => {
-            const isCommuni = item.client === 'Communi';
+            const isCommuni = item.client.includes('Communi');
             const isWithMe = item.client === 'WithMe';
             const isReap = item.client === 'Reap';
             
@@ -85,31 +93,32 @@ export function Work() {
                   <span className="font-display font-semibold text-[15px] tracking-tight text-white">{item.client}</span>
                 </div>
                 <div className="aspect-[9/16] relative bg-[#050505] group cursor-pointer" onClick={() => !playing[item.id] && setPlaying(prev => ({ ...prev, [item.id]: true }))}>
-                  {/* Thumbnail Layer */}
-                  <div className={`absolute inset-0 transition-opacity duration-500 z-0 ${iframeLoaded[item.id] ? 'opacity-0' : 'opacity-100'}`}>
-                    <img src={item.thumbnail} alt={item.client} className="w-full h-full object-cover absolute inset-0" loading="lazy" />
-                    <div className="absolute inset-0 bg-black/20 group-hover:bg-black/10 transition-colors flex items-center justify-center">
-                      {!playing[item.id] ? (
+                  {playing[item.id] ? (
+                    <>
+                      {!iframeLoaded[item.id] && (
+                        <div className="absolute inset-0 flex items-center justify-center bg-[#050505] z-0">
+                          <div className="w-8 h-8 border-2 border-white/20 border-t-white/80 rounded-full animate-spin"></div>
+                        </div>
+                      )}
+                      <iframe 
+                        src={item.provider === 'youtube' ? `https://www.youtube.com/embed/${item.videoId}?autoplay=1&mute=0&rel=0&modestbranding=1&fs=0&iv_load_policy=3` : `https://livid.com/embed/${item.videoId}?muted=false&autoplay=1`} 
+                        className={`w-full h-full absolute inset-0 z-10 transition-opacity duration-300 ${iframeLoaded[item.id] ? 'opacity-100' : 'opacity-0'}`}
+                        allow="autoplay; fullscreen"
+                        frameBorder="0"
+                        onLoad={() => setIframeLoaded(prev => ({ ...prev, [item.id]: true }))}
+                      ></iframe>
+                    </>
+                  ) : (
+                    <>
+                      <img src={item.thumbnail} alt={item.client} className="w-full h-full object-cover absolute inset-0" loading="lazy" />
+                      <div className="absolute inset-0 bg-black/20 group-hover:bg-black/10 transition-colors flex items-center justify-center">
                         <div className="w-14 h-14 bg-white/20 backdrop-blur-md rounded-full flex items-center justify-center transform group-hover:scale-110 transition-transform shadow-xl border border-white/30">
                           <svg className="w-6 h-6 text-white ml-1" fill="currentColor" viewBox="0 0 24 24">
                             <path d="M8 5v14l11-7z" />
                           </svg>
                         </div>
-                      ) : (
-                        <div className="w-12 h-12 border-[3px] border-white/20 border-t-white/90 rounded-full animate-spin shadow-xl"></div>
-                      )}
-                    </div>
-                  </div>
-
-                  {/* Video Layer */}
-                  {playing[item.id] && (
-                    <iframe 
-                      src={`https://livid.com/embed/${item.videoId}?muted=false&autoplay=1`} 
-                      className={`w-full h-full absolute inset-0 z-10 transition-opacity duration-500 ${iframeLoaded[item.id] ? 'opacity-100' : 'opacity-0'}`}
-                      allow="autoplay; fullscreen"
-                      frameBorder="0"
-                      onLoad={() => setIframeLoaded(prev => ({ ...prev, [item.id]: true }))}
-                    ></iframe>
+                      </div>
+                    </>
                   )}
                 </div>
               </div>
