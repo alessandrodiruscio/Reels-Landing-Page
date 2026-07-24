@@ -5,29 +5,21 @@ export function Work() {
   const [playing, setPlaying] = useState<Record<number, boolean>>({});
   const [iframeLoaded, setIframeLoaded] = useState<Record<number, boolean>>({});
 
-  const handlePlay = (id: number, provider?: string) => {
-    setPlaying(prev => ({ ...prev, [id]: true }));
-
-    const triggerUnmuteAndPlay = () => {
-      const iframe = document.getElementById(`iframe-${id}`) as HTMLIFrameElement;
-      if (iframe && iframe.contentWindow) {
-        if (provider === 'vimeo') {
-          try {
-            iframe.contentWindow.postMessage(JSON.stringify({ method: 'setVolume', value: 1 }), '*');
-            iframe.contentWindow.postMessage(JSON.stringify({ method: 'setMuted', value: false }), '*');
-            iframe.contentWindow.postMessage(JSON.stringify({ method: 'play' }), '*');
-          } catch (e) {
-            console.error(e);
-          }
-        }
+  const handlePlay = (id: number) => {
+    // 1. Immediately trigger play & unmute postMessage in the synchronous user gesture stack
+    const iframe = document.getElementById(`iframe-${id}`) as HTMLIFrameElement;
+    if (iframe && iframe.contentWindow) {
+      try {
+        iframe.contentWindow.postMessage(JSON.stringify({ method: 'setVolume', value: 1 }), '*');
+        iframe.contentWindow.postMessage(JSON.stringify({ method: 'setMuted', value: false }), '*');
+        iframe.contentWindow.postMessage(JSON.stringify({ method: 'play' }), '*');
+      } catch (e) {
+        console.error(e);
       }
-    };
+    }
 
-    // Trigger immediately in user gesture stack
-    triggerUnmuteAndPlay();
-    // Re-trigger shortly after to handle iframe readiness
-    setTimeout(triggerUnmuteAndPlay, 100);
-    setTimeout(triggerUnmuteAndPlay, 400);
+    // 2. Set state to show the video
+    setPlaying(prev => ({ ...prev, [id]: true }));
   };
 
   const items = [
@@ -118,53 +110,50 @@ export function Work() {
                 </div>
                 <div 
                   className="aspect-[9/16] relative bg-[#050505] group cursor-pointer" 
-                  onClick={() => handlePlay(item.id, item.provider)}
+                  onClick={() => handlePlay(item.id)}
                 >
-                  {/* Embedded Iframe */}
-                  {isPlaying ? (
-                    <>
-                      {!iframeLoaded[item.id] && (
-                        <div className="absolute inset-0 flex items-center justify-center bg-[#050505] z-0">
-                          <div className="w-8 h-8 border-2 border-white/20 border-t-white/80 rounded-full animate-spin"></div>
-                        </div>
-                      )}
-                      <iframe 
-                        id={`iframe-${item.id}`}
-                        src={`https://player.vimeo.com/video/${item.videoId}?autoplay=1&muted=0&playsinline=1&autopause=0&api=1`}
-                        className={`w-full h-full absolute inset-0 z-10 transition-opacity duration-300 ${iframeLoaded[item.id] ? 'opacity-100' : 'opacity-0'}`}
-                        allow="autoplay *; fullscreen *; picture-in-picture *; encrypted-media *; volume *"
-                        frameBorder="0"
-                        onLoad={() => {
-                          setIframeLoaded(prev => ({ ...prev, [item.id]: true }));
-                          const triggerUnmuteAndPlay = () => {
-                            const iframe = document.getElementById(`iframe-${item.id}`) as HTMLIFrameElement;
-                            if (iframe && iframe.contentWindow) {
-                              try {
-                                iframe.contentWindow.postMessage(JSON.stringify({ method: 'setVolume', value: 1 }), '*');
-                                iframe.contentWindow.postMessage(JSON.stringify({ method: 'setMuted', value: false }), '*');
-                                iframe.contentWindow.postMessage(JSON.stringify({ method: 'play' }), '*');
-                              } catch (e) {
-                                console.error(e);
-                              }
-                            }
-                          };
-                          triggerUnmuteAndPlay();
-                          setTimeout(triggerUnmuteAndPlay, 200);
-                          setTimeout(triggerUnmuteAndPlay, 500);
-                        }}
-                      ></iframe>
-                    </>
-                  ) : (
-                    <>
+                  {/* Always mounted iframe so postMessage executes inside touch gesture */}
+                  <iframe 
+                    id={`iframe-${item.id}`}
+                    src={`https://player.vimeo.com/video/${item.videoId}?autoplay=0&muted=0&playsinline=1&autopause=0&api=1`}
+                    className={`w-full h-full absolute inset-0 z-10 transition-opacity duration-300 ${isPlaying ? 'opacity-100 pointer-events-auto' : 'opacity-0 pointer-events-none'}`}
+                    allow="autoplay *; fullscreen *; picture-in-picture *; encrypted-media *; volume *"
+                    frameBorder="0"
+                    onLoad={() => {
+                      setIframeLoaded(prev => ({ ...prev, [item.id]: true }));
+                      if (playing[item.id]) {
+                        const iframe = document.getElementById(`iframe-${item.id}`) as HTMLIFrameElement;
+                        if (iframe && iframe.contentWindow) {
+                          try {
+                            iframe.contentWindow.postMessage(JSON.stringify({ method: 'setVolume', value: 1 }), '*');
+                            iframe.contentWindow.postMessage(JSON.stringify({ method: 'setMuted', value: false }), '*');
+                            iframe.contentWindow.postMessage(JSON.stringify({ method: 'play' }), '*');
+                          } catch (e) {
+                            console.error(e);
+                          }
+                        }
+                      }
+                    }}
+                  ></iframe>
+
+                  {/* Thumbnail & Play button overlay when not playing */}
+                  {!isPlaying && (
+                    <div className="absolute inset-0 z-20 pointer-events-none">
                       <img src={item.thumbnail} alt={item.client} className="w-full h-full object-cover absolute inset-0" loading="lazy" />
-                      <div className="absolute inset-0 bg-black/20 group-hover:bg-black/10 transition-colors flex items-center justify-center z-20">
+                      <div className="absolute inset-0 bg-black/20 group-hover:bg-black/10 transition-colors flex items-center justify-center">
                         <div className="w-14 h-14 bg-white/20 backdrop-blur-md rounded-full flex items-center justify-center transform group-hover:scale-110 transition-transform shadow-xl border border-white/30">
                           <svg className="w-6 h-6 text-white ml-1" fill="currentColor" viewBox="0 0 24 24">
                             <path d="M8 5v14l11-7z" />
                           </svg>
                         </div>
                       </div>
-                    </>
+                    </div>
+                  )}
+
+                  {isPlaying && !iframeLoaded[item.id] && (
+                    <div className="absolute inset-0 flex items-center justify-center bg-[#050505] z-0">
+                      <div className="w-8 h-8 border-2 border-white/20 border-t-white/80 rounded-full animate-spin"></div>
+                    </div>
                   )}
                 </div>
               </div>
