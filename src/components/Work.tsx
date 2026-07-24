@@ -40,30 +40,25 @@ export function Work() {
       id: 1,
       client: "WPFunnels",
       domain: "getwpfunnels.com",
-      videoId: "hOOUQhzSzzYN",
-      thumbnail: "https://api.livid.com/v1/thumbnails/thumbnails%2F0f3f309c-01d1-42ae-aaef-56da3c58bc11%2F8f5a52c7-054b-4de3-b623-2ea5b7a13439.jpg"
+      videoId: "1211043772",
+      provider: "vimeo",
+      thumbnail: "https://i.vimeocdn.com/video/2181125015-bd9987de91af2798db9ccad690846de2c9c51b09610f80aca2fdce4eef40f550-d_640"
     },
     {
       id: 2,
       client: "Communi",
       domain: "communi.app",
-      videoId: "2KBXvo9ImXEW",
-      thumbnail: "https://api.livid.com/v1/thumbnails/thumbnails%2F40207158-e7c4-4d7c-a4b2-018532ce3fac%2F4eee5b70-dd51-4d55-b4ce-54edf54ca89c.jpg"
-    },
-    {
-      id: 8,
-      client: "Communi (YT)",
-      domain: "communi.app",
-      videoId: "VmSsPJlafbo",
-      provider: "youtube",
-      thumbnail: "https://i.ytimg.com/vi/VmSsPJlafbo/maxresdefault.jpg"
+      videoId: "1206473561",
+      provider: "vimeo",
+      thumbnail: "https://i.vimeocdn.com/video/2175325024-281e59e243b7b86ed09ee323b7b29b60e086e46f43bf5bf504c6c2468122593b-d_640"
     },
     {
       id: 3,
       client: "Fluent Forms",
       domain: "fluentforms.com",
-      videoId: "n9uzExkR3DG9",
-      thumbnail: "https://api.livid.com/v1/thumbnails/thumbnails%2F35aee909-e4aa-4f79-8a34-c6d25e905610%2F56181a51-bd2b-4995-b686-d3323b3e6900.jpg"
+      videoId: "1211043761",
+      provider: "vimeo",
+      thumbnail: "https://i.vimeocdn.com/video/2181125068-14f9fb9dd4ffa4d39ac1abe94e94c926f8ab797e6aad7af6122d7ddeee06d610-d_640"
     },
     {
       id: 4,
@@ -77,15 +72,17 @@ export function Work() {
       id: 5,
       client: "PDF.net",
       domain: "pdf.net",
-      videoId: "SjWe26x2wkxW",
-      thumbnail: "https://api.livid.com/v1/thumbnails/thumbnails%2F6907f446-ec56-42e4-96fe-a38c5c7ae13a%2F902ff8a8-4067-4368-bcce-d34848519e6e.jpg"
+      videoId: "1212588251",
+      provider: "vimeo",
+      thumbnail: "https://i.vimeocdn.com/video/2183055501-83d78352570329b3afedbe9cb6bbaf8d3977176c51f321ec9398dd19192091d5-d_640"
     },
     {
       id: 7,
       client: "Reap",
       domain: "reap.global",
-      videoId: "mnWxrUuEfcYl",
-      thumbnail: "https://api.livid.com/v1/thumbnails/thumbnails%2F0259487c-282b-4911-95b8-f8b1eb1ebe8d%2Fd6bed21a-d332-4ea5-aed1-082f9de4f05a.jpg"
+      videoId: "1212588769",
+      provider: "vimeo",
+      thumbnail: "https://i.vimeocdn.com/video/2183055684-7d9827d374d51cd378c6c7ed7f72a689a2f4e582a63ee47589a4616e453d7589-d_640"
     }
   ];
 
