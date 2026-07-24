@@ -9,7 +9,7 @@ export function CTA() {
           <div className="absolute inset-0 bg-dot-pattern opacity-20 pointer-events-none mix-blend-overlay"></div>
           <div className="absolute top-0 right-0 w-[400px] h-[400px] bg-indigo-500/10 blur-[100px] rounded-full pointer-events-none group-hover:bg-indigo-500/20 transition-colors duration-700"></div>
 
-          <div className="relative z-10 w-full md:w-[52%] flex flex-col items-start pt-2 pb-6 md:py-8">
+          <div className="relative z-10 w-full md:w-[52%] flex flex-col items-start justify-center my-auto self-center py-6 md:py-12">
             <h2 className="text-[clamp(28px,3.5vw,36px)] max-w-[500px] font-extrabold tracking-tight text-white leading-tight">
               Curious how this could work for you?
             </h2>
