@@ -101,7 +101,7 @@ export function Work() {
                         </div>
                       )}
                       <iframe 
-                        src={item.provider === 'youtube' ? `https://www.youtube.com/embed/${item.videoId}?autoplay=1&mute=0&playsinline=1&enablejsapi=1&rel=0&modestbranding=1&fs=0&iv_load_policy=3` : `https://livid.com/embed/${item.videoId}?muted=false&autoplay=1&playsinline=1`} 
+                        src={item.provider === 'youtube' ? `https://www.youtube.com/embed/${item.videoId}?autoplay=1&mute=1&playsinline=1&enablejsapi=1&rel=0&modestbranding=1&fs=0&iv_load_policy=3` : `https://livid.com/embed/${item.videoId}?muted=1&autoplay=1&playsinline=1`} 
                         className={`w-full h-full absolute inset-0 z-10 transition-opacity duration-300 ${iframeLoaded[item.id] ? 'opacity-100' : 'opacity-0'}`}
                         allow="autoplay; fullscreen; picture-in-picture; encrypted-media"
                         frameBorder="0"
