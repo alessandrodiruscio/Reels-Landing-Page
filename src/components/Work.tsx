@@ -5,6 +5,36 @@ export function Work() {
   const [playing, setPlaying] = useState<Record<number, boolean>>({});
   const [iframeLoaded, setIframeLoaded] = useState<Record<number, boolean>>({});
 
+  const unmuteVideo = (id: number, provider?: string) => {
+    const iframe = document.getElementById(`iframe-${id}`) as HTMLIFrameElement;
+    if (iframe && iframe.contentWindow) {
+      if (provider === 'vimeo') {
+        try {
+          iframe.contentWindow.postMessage(JSON.stringify({ method: 'setVolume', value: 1 }), '*');
+          iframe.contentWindow.postMessage(JSON.stringify({ method: 'setMuted', value: false }), '*');
+          iframe.contentWindow.postMessage(JSON.stringify({ method: 'play' }), '*');
+        } catch (e) {
+          console.error(e);
+        }
+      } else if (provider === 'youtube') {
+        try {
+          iframe.contentWindow.postMessage(JSON.stringify({ event: 'command', func: 'unMute', args: [] }), '*');
+          iframe.contentWindow.postMessage(JSON.stringify({ event: 'command', func: 'setVolume', args: [100] }), '*');
+          iframe.contentWindow.postMessage(JSON.stringify({ event: 'command', func: 'playVideo', args: [] }), '*');
+        } catch (e) {
+          console.error(e);
+        }
+      } else {
+        try {
+          iframe.contentWindow.postMessage(JSON.stringify({ method: 'unmute' }), '*');
+          iframe.contentWindow.postMessage(JSON.stringify({ method: 'setVolume', value: 1 }), '*');
+        } catch (e) {
+          console.error(e);
+        }
+      }
+    }
+  };
+
   const items = [
     {
       id: 1,
@@ -93,7 +123,16 @@ export function Work() {
                   )}
                   <span className="font-display font-semibold text-[15px] tracking-tight text-white">{item.client}</span>
                 </div>
-                <div className="aspect-[9/16] relative bg-[#050505] group cursor-pointer" onClick={() => !playing[item.id] && setPlaying(prev => ({ ...prev, [item.id]: true }))}>
+                <div 
+                  className="aspect-[9/16] relative bg-[#050505] group cursor-pointer" 
+                  onClick={() => {
+                    if (!playing[item.id]) {
+                      setPlaying(prev => ({ ...prev, [item.id]: true }));
+                    } else {
+                      unmuteVideo(item.id, item.provider);
+                    }
+                  }}
+                >
                   {playing[item.id] ? (
                     <>
                       {!iframeLoaded[item.id] && (
@@ -102,17 +141,23 @@ export function Work() {
                         </div>
                       )}
                       <iframe 
+                        id={`iframe-${item.id}`}
                         src={
                           item.provider === 'youtube'
                             ? `https://www.youtube.com/embed/${item.videoId}?autoplay=1&mute=0&playsinline=1&enablejsapi=1&rel=0&modestbranding=1&fs=0&iv_load_policy=3`
                             : item.provider === 'vimeo'
-                            ? `https://player.vimeo.com/video/${item.videoId}?autoplay=1&muted=0&playsinline=1&autopause=0`
+                            ? `https://player.vimeo.com/video/${item.videoId}?autoplay=1&muted=0&playsinline=1&autopause=0&api=1`
                             : `https://livid.com/embed/${item.videoId}?muted=false&autoplay=1&playsinline=1`
                         } 
                         className={`w-full h-full absolute inset-0 z-10 transition-opacity duration-300 ${iframeLoaded[item.id] ? 'opacity-100' : 'opacity-0'}`}
-                        allow="autoplay; fullscreen; picture-in-picture; encrypted-media"
+                        allow="autoplay *; fullscreen *; picture-in-picture *; encrypted-media *; volume *"
                         frameBorder="0"
-                        onLoad={() => setIframeLoaded(prev => ({ ...prev, [item.id]: true }))}
+                        onLoad={() => {
+                          setIframeLoaded(prev => ({ ...prev, [item.id]: true }));
+                          unmuteVideo(item.id, item.provider);
+                          setTimeout(() => unmuteVideo(item.id, item.provider), 300);
+                          setTimeout(() => unmuteVideo(item.id, item.provider), 800);
+                        }}
                       ></iframe>
                     </>
                   ) : (
