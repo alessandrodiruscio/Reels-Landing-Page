@@ -49,12 +49,12 @@ export function Hero() {
             {/* Screen Content (Simulated Video) */}
             <div className="w-full h-full bg-black rounded-[38px] relative overflow-hidden flex flex-col items-center justify-center">
               <img 
-                src="https://api.livid.com/v1/thumbnails/thumbnails%2Ff5c4db93-1862-48a2-87ba-24858eeb6474%2F699e3798-9936-41a7-adde-ec8f9de66193_sm.jpg"
+                src="https://i.vimeocdn.com/video/2183086634-cfeca7c25dc8cc1c38843f14a97bf81c7f2067c89f272c65e5c6242a787b23bd-d_640?region=us"
                 alt="Video thumbnail"
                 className={`absolute top-1/2 left-1/2 w-[400px] h-[712px] -translate-x-1/2 -translate-y-1/2 object-cover pointer-events-none transition-opacity duration-500 ${heroVideoLoaded ? 'opacity-0' : 'opacity-100'}`}
               />
               <iframe 
-                src="https://livid.com/embed/ec23C38T71sq?autoplay=1&loop=1&muted=1&controls=0&background=1&playsinline=1" 
+                src="https://player.vimeo.com/video/1212612807?autoplay=1&loop=1&muted=1&background=1&playsinline=1&autopause=0" 
                 allow="autoplay; fullscreen; picture-in-picture"
                 className={`absolute top-1/2 left-1/2 w-[400px] h-[712px] -translate-x-1/2 -translate-y-1/2 pointer-events-none transition-opacity duration-500 ${heroVideoLoaded ? 'opacity-100' : 'opacity-0'}`}
                 style={{ border: 'none' }}
