@@ -1,4 +1,5 @@
 import { Calendar } from 'lucide-react';
+import alessandroImg from '../assets/alessandro2.png';
 
 export function CTA() {
   return (
@@ -23,9 +24,11 @@ export function CTA() {
 
           <div className="relative z-10 w-full md:w-[45%] flex justify-center md:justify-end items-end shrink-0 mt-2 md:mt-0 pointer-events-none">
             <img 
-              src="/alessandro2.png"
+              src={alessandroImg}
               alt="Alessandro" 
-              referrerPolicy="no-referrer"
+              onError={(e) => {
+                e.currentTarget.src = "https://gcdnb.pbrd.co/images/smbKsyp8dFiZ.png";
+              }}
               className="h-[280px] sm:h-[340px] md:h-[380px] lg:h-[420px] w-auto max-w-full object-contain object-bottom filter drop-shadow-2xl"
             />
           </div>
@@ -34,4 +37,3 @@ export function CTA() {
     </section>
   );
 }
-
