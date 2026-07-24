@@ -39,8 +39,9 @@ export function Work() {
       id: 4,
       client: "WithMe",
       domain: "withme.com",
-      videoId: "q4kc2OoYT_Di",
-      thumbnail: "https://api.livid.com/v1/thumbnails/thumbnails%2F865d7f62-107f-48a4-808d-ded559c5df94%2Fcd098196-5916-4acc-b711-61afd29eda03.jpg"
+      videoId: "1207413569",
+      provider: "vimeo",
+      thumbnail: "https://i.vimeocdn.com/video/2176494508-55b72ea64dc7de941482f1187e7c59ccffcb443766200f75ddf2a28b549499d2-d_640"
     },
     {
       id: 5,
@@ -101,7 +102,13 @@ export function Work() {
                         </div>
                       )}
                       <iframe 
-                        src={item.provider === 'youtube' ? `https://www.youtube.com/embed/${item.videoId}?autoplay=1&mute=1&playsinline=1&enablejsapi=1&rel=0&modestbranding=1&fs=0&iv_load_policy=3` : `https://livid.com/embed/${item.videoId}?muted=1&autoplay=1&playsinline=1`} 
+                        src={
+                          item.provider === 'youtube'
+                            ? `https://www.youtube.com/embed/${item.videoId}?autoplay=1&mute=1&playsinline=1&enablejsapi=1&rel=0&modestbranding=1&fs=0&iv_load_policy=3`
+                            : item.provider === 'vimeo'
+                            ? `https://player.vimeo.com/video/${item.videoId}?autoplay=1&muted=1&playsinline=1&autopause=0`
+                            : `https://livid.com/embed/${item.videoId}?muted=1&autoplay=1&playsinline=1`
+                        } 
                         className={`w-full h-full absolute inset-0 z-10 transition-opacity duration-300 ${iframeLoaded[item.id] ? 'opacity-100' : 'opacity-0'}`}
                         allow="autoplay; fullscreen; picture-in-picture; encrypted-media"
                         frameBorder="0"
