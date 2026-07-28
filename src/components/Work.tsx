@@ -32,20 +32,22 @@ export function Work() {
       thumbnail: "https://i.vimeocdn.com/video/2181125015-bd9987de91af2798db9ccad690846de2c9c51b09610f80aca2fdce4eef40f550-d_640"
     },
     {
-      id: 2,
-      client: "Communi",
-      domain: "communi.app",
-      videoId: "1206473561",
+      id: 8,
+      client: "Manual",
+      domain: "manual.co",
+      videoId: "1213257242",
       provider: "vimeo",
-      thumbnail: "https://i.vimeocdn.com/video/2175325024-281e59e243b7b86ed09ee323b7b29b60e086e46f43bf5bf504c6c2468122593b-d_640"
+      thumbnail: "https://i.vimeocdn.com/video/2183877047-cdbdb67fe5655862eb4ae28e9808d7157d538edd2d0d4115342ca53e94e2288c-d_640",
+      logoUrl: "https://gcdnb.pbrd.co/images/A6ruT1-b83vj.png"
     },
     {
-      id: 3,
-      client: "Fluent Forms",
-      domain: "fluentforms.com",
-      videoId: "1211043761",
+      id: 9,
+      client: "Livid",
+      domain: "livid.com",
+      videoId: "1213552569",
       provider: "vimeo",
-      thumbnail: "https://i.vimeocdn.com/video/2181125068-14f9fb9dd4ffa4d39ac1abe94e94c926f8ab797e6aad7af6122d7ddeee06d610-d_640"
+      thumbnail: "https://i.vimeocdn.com/video/2184243980-632a33279d12e594adca4255cf467c7d7b6cb6bd526553236c60416e81abbb9e-d_640",
+      logoUrl: "https://gcdnb.pbrd.co/images/Qb76rZQa9imn.png"
     },
     {
       id: 4,
@@ -70,6 +72,22 @@ export function Work() {
       videoId: "1212588769",
       provider: "vimeo",
       thumbnail: "https://i.vimeocdn.com/video/2183055684-7d9827d374d51cd378c6c7ed7f72a689a2f4e582a63ee47589a4616e453d7589-d_640"
+    },
+    {
+      id: 3,
+      client: "Fluent Forms",
+      domain: "fluentforms.com",
+      videoId: "1211043761",
+      provider: "vimeo",
+      thumbnail: "https://i.vimeocdn.com/video/2181125068-14f9fb9dd4ffa4d39ac1abe94e94c926f8ab797e6aad7af6122d7ddeee06d610-d_640"
+    },
+    {
+      id: 2,
+      client: "Communi",
+      domain: "communi.app",
+      videoId: "1206473561",
+      provider: "vimeo",
+      thumbnail: "https://i.vimeocdn.com/video/2175325024-281e59e243b7b86ed09ee323b7b29b60e086e46f43bf5bf504c6c2468122593b-d_640"
     }
   ];
 
@@ -93,7 +111,13 @@ export function Work() {
             return (
               <div key={item.id} className="w-full sm:w-[280px] md:w-[260px] lg:w-[280px] bg-white/5 backdrop-blur-xl border border-white/10 rounded-[20px] overflow-hidden flex flex-col transition-all duration-300 hover:-translate-y-[3px] hover:shadow-2xl hover:border-white/20 hover:bg-white/10 text-left">
                 <div className="p-3.5 flex items-center gap-3 border-b border-white/5 bg-black/20">
-                  {isCommuni ? (
+                  {item.logoUrl ? (
+                    <img 
+                      src={item.logoUrl} 
+                      alt={`${item.client} logo`}
+                      className="w-5 h-5 rounded-md object-contain"
+                    />
+                  ) : isCommuni ? (
                     <CommuniLogo className="w-5 h-5" />
                   ) : isWithMe ? (
                     <WithMeLogo className="w-5 h-5" />
