@@ -1,6 +1,5 @@
 import { useState } from 'react';
 import { CommuniLogo, WithMeLogo, ReapLogo } from './Logos';
-import manualThumb from '../assets/manual-livid-thumb.jpg';
 
 export function Work() {
   const [playing, setPlaying] = useState<Record<number, boolean>>({});
@@ -41,7 +40,7 @@ export function Work() {
       domain: "manual.co",
       videoId: "MEAmoB7zNWdi",
       provider: "livid",
-      thumbnail: manualThumb,
+      thumbnail: "https://api.livid.com/v1/thumbnails/thumbnails%2F4b25cc50-ad55-4ea5-bf33-1c5ae86097f6%2Fa2e35b81-6b09-4294-ba00-7ab2042df91a.jpg",
       logoUrl: "https://gcdnb.pbrd.co/images/A6ruT1-b83vj.png"
     },
     {
