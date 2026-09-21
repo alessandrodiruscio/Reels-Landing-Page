@@ -6,22 +6,6 @@ export function Work() {
   const [iframeLoaded, setIframeLoaded] = useState<Record<number, boolean>>({});
 
   const handlePlay = (id: number) => {
-    // 1. Trigger play & unmute for Vimeo embeds inside user gesture
-    const item = items.find(i => i.id === id);
-    if (item?.provider === 'vimeo') {
-      const iframe = document.getElementById(`iframe-${id}`) as HTMLIFrameElement;
-      if (iframe && iframe.contentWindow) {
-        try {
-          iframe.contentWindow.postMessage(JSON.stringify({ method: 'setVolume', value: 1 }), '*');
-          iframe.contentWindow.postMessage(JSON.stringify({ method: 'setMuted', value: false }), '*');
-          iframe.contentWindow.postMessage(JSON.stringify({ method: 'play' }), '*');
-        } catch (e) {
-          console.error(e);
-        }
-      }
-    }
-
-    // 2. Set state to show the video
     setPlaying(prev => ({ ...prev, [id]: true }));
   };
 
@@ -30,9 +14,9 @@ export function Work() {
       id: 1,
       client: "WPFunnels",
       domain: "getwpfunnels.com",
-      videoId: "1211043772",
-      provider: "vimeo",
-      thumbnail: "https://i.vimeocdn.com/video/2181125015-bd9987de91af2798db9ccad690846de2c9c51b09610f80aca2fdce4eef40f550-d_640"
+      videoId: "hOOUQhzSzzYN",
+      provider: "livid",
+      thumbnail: "https://api.livid.com/v1/thumbnails/thumbnails%2F0f3f309c-01d1-42ae-aaef-56da3c58bc11%2F8f5a52c7-054b-4de3-b623-2ea5b7a13439.jpg"
     },
     {
       id: 8,
@@ -47,50 +31,50 @@ export function Work() {
       id: 9,
       client: "Livid",
       domain: "livid.com",
-      videoId: "1213552569",
-      provider: "vimeo",
-      thumbnail: "https://i.vimeocdn.com/video/2184243980-632a33279d12e594adca4255cf467c7d7b6cb6bd526553236c60416e81abbb9e-d_640",
+      videoId: "HNtH697IcndJ",
+      provider: "livid",
+      thumbnail: "https://api.livid.com/v1/thumbnails/thumbnails%2F31a18ecc-9d5b-48cd-92bd-af1af985f753%2Fa0a76bfc-6b7f-40ff-9873-5167202e7ff6.jpg",
       logoUrl: "https://gcdnb.pbrd.co/images/Qb76rZQa9imn.png"
     },
     {
       id: 4,
       client: "WithMe",
       domain: "withme.com",
-      videoId: "1207413569",
-      provider: "vimeo",
-      thumbnail: "https://i.vimeocdn.com/video/2176494508-55b72ea64dc7de941482f1187e7c59ccffcb443766200f75ddf2a28b549499d2-d_640"
+      videoId: "q4kc2OoYT_Di",
+      provider: "livid",
+      thumbnail: "https://api.livid.com/v1/thumbnails/thumbnails%2F865d7f62-107f-48a4-808d-ded559c5df94%2Fcd098196-5916-4acc-b711-61afd29eda03.jpg"
     },
     {
       id: 5,
       client: "PDF.net",
       domain: "pdf.net",
-      videoId: "1212588251",
-      provider: "vimeo",
-      thumbnail: "https://i.vimeocdn.com/video/2183055501-83d78352570329b3afedbe9cb6bbaf8d3977176c51f321ec9398dd19192091d5-d_640"
+      videoId: "SjWe26x2wkxW",
+      provider: "livid",
+      thumbnail: "https://api.livid.com/v1/thumbnails/thumbnails%2F6907f446-ec56-42e4-96fe-a38c5c7ae13a%2F902ff8a8-4067-4368-bcce-d34848519e6e.jpg"
     },
     {
       id: 7,
       client: "Reap",
       domain: "reap.global",
-      videoId: "1212588769",
-      provider: "vimeo",
-      thumbnail: "https://i.vimeocdn.com/video/2183055684-7d9827d374d51cd378c6c7ed7f72a689a2f4e582a63ee47589a4616e453d7589-d_640"
+      videoId: "mnWxrUuEfcYl",
+      provider: "livid",
+      thumbnail: "https://api.livid.com/v1/thumbnails/thumbnails%2F0259487c-282b-4911-95b8-f8b1eb1ebe8d%2Fd6bed21a-d332-4ea5-aed1-082f9de4f05a.jpg"
     },
     {
       id: 3,
       client: "Fluent Forms",
       domain: "fluentforms.com",
-      videoId: "1211043761",
-      provider: "vimeo",
-      thumbnail: "https://i.vimeocdn.com/video/2181125068-14f9fb9dd4ffa4d39ac1abe94e94c926f8ab797e6aad7af6122d7ddeee06d610-d_640"
+      videoId: "n9uzExkR3DG9",
+      provider: "livid",
+      thumbnail: "https://api.livid.com/v1/thumbnails/thumbnails%2F35aee909-e4aa-4f79-8a34-c6d25e905610%2F56181a51-bd2b-4995-b686-d3323b3e6900.jpg"
     },
     {
       id: 2,
       client: "Communi",
       domain: "communi.app",
-      videoId: "1206473561",
-      provider: "vimeo",
-      thumbnail: "https://i.vimeocdn.com/video/2175325024-281e59e243b7b86ed09ee323b7b29b60e086e46f43bf5bf504c6c2468122593b-d_640"
+      videoId: "2KBXvo9ImXEW",
+      provider: "livid",
+      thumbnail: "https://api.livid.com/v1/thumbnails/thumbnails%2F40207158-e7c4-4d7c-a4b2-018532ce3fac%2F4eee5b70-dd51-4d55-b4ce-54edf54ca89c.jpg"
     }
   ];
 
@@ -139,31 +123,14 @@ export function Work() {
                   className="aspect-[9/16] relative bg-[#050505] group cursor-pointer" 
                   onClick={() => handlePlay(item.id)}
                 >
-                  {/* Always mounted iframe so postMessage executes inside touch gesture */}
                   <iframe 
                     id={`iframe-${item.id}`}
-                    src={
-                      item.provider === 'livid'
-                        ? (isPlaying ? `https://livid.com/embed/${item.videoId}?autoplay=1&muted=0&playsinline=1` : undefined)
-                        : `https://player.vimeo.com/video/${item.videoId}?autoplay=0&muted=0&playsinline=1&autopause=0&api=1`
-                    }
+                    src={isPlaying ? `https://livid.com/embed/${item.videoId}?autoplay=1&muted=0&playsinline=1` : undefined}
                     className={`w-full h-full absolute inset-0 z-10 transition-opacity duration-300 ${isPlaying ? 'opacity-100 pointer-events-auto' : 'opacity-0 pointer-events-none'}`}
                     allow="autoplay *; fullscreen *; picture-in-picture *; encrypted-media *; volume *"
                     frameBorder="0"
                     onLoad={() => {
                       setIframeLoaded(prev => ({ ...prev, [item.id]: true }));
-                      if (playing[item.id] && item.provider === 'vimeo') {
-                        const iframe = document.getElementById(`iframe-${item.id}`) as HTMLIFrameElement;
-                        if (iframe && iframe.contentWindow) {
-                          try {
-                            iframe.contentWindow.postMessage(JSON.stringify({ method: 'setVolume', value: 1 }), '*');
-                            iframe.contentWindow.postMessage(JSON.stringify({ method: 'setMuted', value: false }), '*');
-                            iframe.contentWindow.postMessage(JSON.stringify({ method: 'play' }), '*');
-                          } catch (e) {
-                            console.error(e);
-                          }
-                        }
-                      }
                     }}
                   ></iframe>
 
