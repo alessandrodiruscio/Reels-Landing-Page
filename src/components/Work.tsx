@@ -1,20 +1,24 @@
 import { useState } from 'react';
 import { CommuniLogo, WithMeLogo, ReapLogo } from './Logos';
+import manualThumb from '../assets/manual-livid-thumb.jpg';
 
 export function Work() {
   const [playing, setPlaying] = useState<Record<number, boolean>>({});
   const [iframeLoaded, setIframeLoaded] = useState<Record<number, boolean>>({});
 
   const handlePlay = (id: number) => {
-    // 1. Immediately trigger play & unmute postMessage in the synchronous user gesture stack
-    const iframe = document.getElementById(`iframe-${id}`) as HTMLIFrameElement;
-    if (iframe && iframe.contentWindow) {
-      try {
-        iframe.contentWindow.postMessage(JSON.stringify({ method: 'setVolume', value: 1 }), '*');
-        iframe.contentWindow.postMessage(JSON.stringify({ method: 'setMuted', value: false }), '*');
-        iframe.contentWindow.postMessage(JSON.stringify({ method: 'play' }), '*');
-      } catch (e) {
-        console.error(e);
+    // 1. Trigger play & unmute for Vimeo embeds inside user gesture
+    const item = items.find(i => i.id === id);
+    if (item?.provider === 'vimeo') {
+      const iframe = document.getElementById(`iframe-${id}`) as HTMLIFrameElement;
+      if (iframe && iframe.contentWindow) {
+        try {
+          iframe.contentWindow.postMessage(JSON.stringify({ method: 'setVolume', value: 1 }), '*');
+          iframe.contentWindow.postMessage(JSON.stringify({ method: 'setMuted', value: false }), '*');
+          iframe.contentWindow.postMessage(JSON.stringify({ method: 'play' }), '*');
+        } catch (e) {
+          console.error(e);
+        }
       }
     }
 
@@ -35,9 +39,9 @@ export function Work() {
       id: 8,
       client: "Manual",
       domain: "manual.co",
-      videoId: "1213257242",
-      provider: "vimeo",
-      thumbnail: "https://i.vimeocdn.com/video/2183877047-cdbdb67fe5655862eb4ae28e9808d7157d538edd2d0d4115342ca53e94e2288c-d_640",
+      videoId: "MEAmoB7zNWdi",
+      provider: "livid",
+      thumbnail: manualThumb,
       logoUrl: "https://gcdnb.pbrd.co/images/A6ruT1-b83vj.png"
     },
     {
@@ -139,13 +143,17 @@ export function Work() {
                   {/* Always mounted iframe so postMessage executes inside touch gesture */}
                   <iframe 
                     id={`iframe-${item.id}`}
-                    src={`https://player.vimeo.com/video/${item.videoId}?autoplay=0&muted=0&playsinline=1&autopause=0&api=1`}
+                    src={
+                      item.provider === 'livid'
+                        ? (isPlaying ? `https://livid.com/embed/${item.videoId}?autoplay=1&muted=0&playsinline=1` : undefined)
+                        : `https://player.vimeo.com/video/${item.videoId}?autoplay=0&muted=0&playsinline=1&autopause=0&api=1`
+                    }
                     className={`w-full h-full absolute inset-0 z-10 transition-opacity duration-300 ${isPlaying ? 'opacity-100 pointer-events-auto' : 'opacity-0 pointer-events-none'}`}
                     allow="autoplay *; fullscreen *; picture-in-picture *; encrypted-media *; volume *"
                     frameBorder="0"
                     onLoad={() => {
                       setIframeLoaded(prev => ({ ...prev, [item.id]: true }));
-                      if (playing[item.id]) {
+                      if (playing[item.id] && item.provider === 'vimeo') {
                         const iframe = document.getElementById(`iframe-${item.id}`) as HTMLIFrameElement;
                         if (iframe && iframe.contentWindow) {
                           try {
