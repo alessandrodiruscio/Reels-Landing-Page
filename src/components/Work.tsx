@@ -1,14 +1,6 @@
-import { useState } from 'react';
 import { CommuniLogo, WithMeLogo, ReapLogo } from './Logos';
 
 export function Work() {
-  const [playing, setPlaying] = useState<Record<number, boolean>>({});
-  const [iframeLoaded, setIframeLoaded] = useState<Record<number, boolean>>({});
-
-  const handlePlay = (id: number) => {
-    setPlaying(prev => ({ ...prev, [id]: true }));
-  };
-
   const items = [
     {
       id: 1,
@@ -93,7 +85,6 @@ export function Work() {
             const isCommuni = item.client.includes('Communi');
             const isWithMe = item.client === 'WithMe';
             const isReap = item.client === 'Reap';
-            const isPlaying = playing[item.id];
             
             return (
               <div key={item.id} className="w-full sm:w-[280px] md:w-[260px] lg:w-[280px] bg-white/5 backdrop-blur-xl border border-white/10 rounded-[20px] overflow-hidden flex flex-col transition-all duration-300 hover:-translate-y-[3px] hover:shadow-2xl hover:border-white/20 hover:bg-white/10 text-left">
@@ -119,40 +110,15 @@ export function Work() {
                   )}
                   <span className="font-display font-semibold text-[15px] tracking-tight text-white">{item.client}</span>
                 </div>
-                <div 
-                  className="aspect-[9/16] relative bg-[#050505] group cursor-pointer" 
-                  onClick={() => handlePlay(item.id)}
-                >
+                <div className="aspect-[9/16] relative bg-[#050505]">
                   <iframe 
                     id={`iframe-${item.id}`}
-                    src={isPlaying ? `https://livid.com/embed/${item.videoId}?autoplay=1&muted=0&playsinline=1` : undefined}
-                    className={`w-full h-full absolute inset-0 z-10 transition-opacity duration-300 ${isPlaying ? 'opacity-100 pointer-events-auto' : 'opacity-0 pointer-events-none'}`}
+                    src={`https://livid.com/embed/${item.videoId}?playsinline=1`}
+                    className="w-full h-full absolute inset-0 z-10 border-0"
                     allow="autoplay *; fullscreen *; picture-in-picture *; encrypted-media *; volume *"
-                    frameBorder="0"
-                    onLoad={() => {
-                      setIframeLoaded(prev => ({ ...prev, [item.id]: true }));
-                    }}
+                    loading="lazy"
+                    title={`${item.client} video`}
                   ></iframe>
-
-                  {/* Thumbnail & Play button overlay when not playing */}
-                  {!isPlaying && (
-                    <div className="absolute inset-0 z-20 pointer-events-none">
-                      <img src={item.thumbnail} alt={item.client} className="w-full h-full object-cover absolute inset-0" loading="lazy" />
-                      <div className="absolute inset-0 bg-black/20 group-hover:bg-black/10 transition-colors flex items-center justify-center">
-                        <div className="w-14 h-14 bg-white/20 backdrop-blur-md rounded-full flex items-center justify-center transform group-hover:scale-110 transition-transform shadow-xl border border-white/30">
-                          <svg className="w-6 h-6 text-white ml-1" fill="currentColor" viewBox="0 0 24 24">
-                            <path d="M8 5v14l11-7z" />
-                          </svg>
-                        </div>
-                      </div>
-                    </div>
-                  )}
-
-                  {isPlaying && !iframeLoaded[item.id] && (
-                    <div className="absolute inset-0 flex items-center justify-center bg-[#050505] z-0">
-                      <div className="w-8 h-8 border-2 border-white/20 border-t-white/80 rounded-full animate-spin"></div>
-                    </div>
-                  )}
                 </div>
               </div>
             );
